@@ -10,7 +10,10 @@ import liveStatusRoute  from './routes/liveStatus.js';
 import healthRoute      from './routes/health.js';
 import logger           from './utils/logger.js';
 
-const app = Fastify({ logger });
+const app = Fastify({
+loggerInstance: logger
+});
+
 
 // CORS
 await app.register(fastifyCors, {
