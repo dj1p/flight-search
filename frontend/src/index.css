@@ -1,0 +1,276 @@
+/* ── Reset & base ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f1f5f9;
+  --surface:   #ffffff;
+  --border:    #e2e8f0;
+  --text:      #0f172a;
+  --muted:     #64748b;
+  --accent:    #2563eb;
+  --accent-h:  #1d4ed8;
+  --green:     #16a34a;
+  --red:       #dc2626;
+  --amber:     #d97706;
+  --radius:    10px;
+  --shadow:    0 1px 4px rgba(0,0,0,.08);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,.12);
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.app        { max-width: 960px; margin: 0 auto; padding: 1rem; }
+.app-header { margin-bottom: 1.5rem; }
+.app-header h1 { font-size: 2rem; font-weight: 800; letter-spacing: -.5px; }
+.subtitle   { color: var(--muted); font-size: .95rem; margin-top: .25rem; }
+.app-main   { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── Search form ────────────────────────────────────────────────────────── */
+.search-form {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.fieldset { border: none; }
+.fieldset-legend {
+  font-size: .8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+
+.trip-type-group { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.radio-label {
+  display: flex; align-items: center; gap: .4rem;
+  cursor: pointer; text-transform: capitalize; font-size: .95rem;
+}
+.radio-label input { accent-color: var(--accent); width: 16px; height: 16px; }
+
+.slices-section { display: flex; flex-direction: column; gap: .75rem; }
+.slice-row      { display: flex; gap: .75rem; align-items: flex-end; flex-wrap: wrap; }
+.slice-label    { font-size: .8rem; font-weight: 600; color: var(--muted); min-width: 40px; padding-bottom: .5rem; }
+
+.field-label {
+  display: flex; flex-direction: column; gap: .3rem;
+  font-size: .8rem; font-weight: 600; color: var(--muted);
+  flex: 1; min-width: 110px;
+}
+.field-label input,
+.field-label select {
+  padding: .55rem .75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  font-size: .95rem;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color .15s;
+  width: 100%;
+}
+.field-label input:focus,
+.field-label select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+.passengers-group { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.counter-label {
+  display: flex; flex-direction: column; gap: .3rem;
+  font-size: .8rem; font-weight: 600; color: var(--muted);
+}
+.counter-label input {
+  width: 72px; padding: .55rem .75rem;
+  border: 1.5px solid var(--border); border-radius: 7px;
+  font-size: .95rem; text-align: center;
+}
+
+.options-row { display: flex; gap: .75rem; flex-wrap: wrap; }
+.options-row .field-label { min-width: 120px; }
+
+.btn-add-city {
+  align-self: flex-start;
+  background: transparent; border: 1.5px dashed var(--border);
+  color: var(--accent); padding: .45rem 1rem; border-radius: 7px;
+  cursor: pointer; font-size: .875rem; font-weight: 600;
+  transition: all .15s;
+}
+.btn-add-city:hover { background: #eff6ff; border-color: var(--accent); }
+
+.btn-remove {
+  background: transparent; border: none;
+  color: var(--muted); cursor: pointer; font-size: 1.1rem;
+  padding: .4rem; border-radius: 5px; transition: color .15s;
+  align-self: flex-end; margin-bottom: .25rem;
+}
+.btn-remove:hover { color: var(--red); }
+
+.search-btn {
+  background: var(--accent); color: #fff;
+  border: none; padding: .8rem 2.5rem;
+  border-radius: 8px; font-size: 1rem; font-weight: 700;
+  cursor: pointer; align-self: flex-start;
+  transition: background .15s, transform .1s;
+  letter-spacing: .01em;
+}
+.search-btn:hover  { background: var(--accent-h); }
+.search-btn:active { transform: scale(.98); }
+
+/* ── Feedback states ────────────────────────────────────────────────────── */
+.spinner {
+  text-align: center; padding: 2.5rem;
+  color: var(--muted); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.spinner-icon { font-size: 1.4rem; display: inline-block; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error {
+  background: #fef2f2; border: 1px solid #fecaca;
+  color: var(--red); padding: 1rem 1.25rem;
+  border-radius: var(--radius); font-size: .95rem;
+}
+
+.dates-note { color: var(--muted); font-size: .875rem; }
+.no-results { text-align: center; color: var(--muted); padding: 2rem; }
+
+/* ── Results ────────────────────────────────────────────────────────────── */
+.results { display: flex; flex-direction: column; gap: .75rem; }
+.results-header {
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 600; font-size: .95rem;
+}
+.sort-label { font-weight: 400; font-size: .875rem; display: flex; align-items: center; gap: .4rem; }
+.sort-label select { padding: .3rem .6rem; border: 1.5px solid var(--border); border-radius: 6px; }
+.offers-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.load-more-note { text-align: center; color: var(--muted); font-size: .85rem; margin-top: .5rem; }
+
+/* ── Offer card ─────────────────────────────────────────────────────────── */
+.offer-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1.5px solid transparent;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: box-shadow .15s, border-color .15s;
+  user-select: none;
+}
+.offer-card:hover           { box-shadow: var(--shadow-lg); }
+.offer-card--expanded       { border-color: var(--accent); }
+.offer-card:focus-visible   { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.offer-summary {
+  display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+}
+
+.airline        { display: flex; flex-direction: column; min-width: 70px; }
+.iata           { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+.airline-name   { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+.route          { display: flex; align-items: center; gap: .75rem; flex: 1; min-width: 200px; }
+.endpoint       { display: flex; flex-direction: column; align-items: center; }
+.airport-code   { font-size: 1.2rem; font-weight: 700; }
+.time           { font-size: .85rem; color: var(--muted); }
+
+.route-mid      { flex: 1; display: flex; flex-direction: column; align-items: center; gap: .2rem; }
+.duration-small { font-size: .78rem; color: var(--muted); }
+.route-line     { display: flex; align-items: center; width: 100%; gap: 0; }
+.dot            { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+.line           { flex: 1; height: 1.5px; background: var(--border); }
+.stop-dot       { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); margin: 0 -2px; }
+.stops          { font-size: .78rem; color: var(--amber); font-weight: 600; }
+.stops.direct   { color: var(--green); }
+
+.offer-meta     { display: flex; flex-direction: column; gap: .25rem; font-size: .8rem; color: var(--muted); }
+.cabin-badge    { background: #f1f5f9; padding: .2rem .5rem; border-radius: 4px; text-transform: capitalize; font-size: .75rem; font-weight: 600; }
+.layover-info   { font-size: .75rem; }
+
+.price-col      { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: .25rem; }
+.price-amount   { font-size: 1.25rem; font-weight: 700; white-space: nowrap; }
+
+.badge          { font-size: .72rem; padding: .2rem .55rem; border-radius: 999px; font-weight: 600; }
+.badge--green   { background: #dcfce7; color: var(--green); }
+.badge--red     { background: #fee2e2; color: var(--red); }
+
+.expand-icon    { color: var(--muted); font-size: .75rem; margin-left: .25rem; }
+
+/* ── Offer detail ───────────────────────────────────────────────────────── */
+.offer-detail { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.slice-detail { margin-bottom: 1rem; }
+.slice-heading { font-size: .85rem; font-weight: 700; color: var(--muted); margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+
+.segment {
+  padding: .75rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: .5rem;
+}
+.seg-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .6rem; flex-wrap: wrap; }
+.seg-flight-num { font-weight: 700; font-size: 1rem; }
+.seg-aircraft { color: var(--muted); font-size: .85rem; }
+
+.seg-row { display: flex; align-items: center; gap: 1rem; }
+.seg-endpoint { flex: 1; }
+.seg-endpoint--right { text-align: right; }
+.seg-time    { font-size: .95rem; font-weight: 700; }
+.seg-airport { font-size: .85rem; font-weight: 600; }
+.terminal    { font-size: .75rem; color: var(--muted); }
+.seg-name    { font-size: .75rem; color: var(--muted); }
+.seg-mid     { flex: 1; text-align: center; }
+.seg-dur     { font-size: .78rem; color: var(--muted); margin-bottom: .2rem; }
+.seg-arrow   { color: var(--border); font-size: .7rem; letter-spacing: -.1em; }
+
+.seg-footer { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+
+.layover-bar {
+  text-align: center; font-size: .82rem; color: var(--amber);
+  font-style: italic; padding: .4rem .75rem;
+  background: #fffbeb; border-radius: 6px;
+  margin-bottom: .5rem;
+}
+
+.price-breakdown {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  font-size: .875rem; color: var(--muted);
+  padding: .75rem 0; border-top: 1px solid var(--border);
+  margin-top: .75rem;
+}
+.total-price { font-weight: 700; color: var(--text); }
+
+.conditions {
+  display: flex; gap: 1rem; font-size: .8rem; margin-top: .5rem; color: var(--muted);
+}
+
+.offer-expires { font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+
+/* ── Live status badge ──────────────────────────────────────────────────── */
+.live-badge         { font-size: .78rem; font-weight: 600; }
+.live-badge--loading { color: var(--muted); }
+.delay-tag { background: #fef3c7; color: var(--amber); padding: .1rem .35rem; border-radius: 4px; margin-left: .3rem; font-size: .72rem; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .app-header h1  { font-size: 1.5rem; }
+  .search-form    { padding: 1rem; }
+  .offer-summary  { flex-direction: column; align-items: flex-start; }
+  .price-col      { margin-left: 0; flex-direction: row; align-items: center; gap: .5rem; }
+  .route          { width: 100%; }
+  .options-row    { flex-direction: column; }
+  .seg-row        { flex-direction: column; gap: .5rem; }
+  .seg-endpoint--right { text-align: left; }
+  .price-breakdown { flex-direction: column; gap: .4rem; }
+}

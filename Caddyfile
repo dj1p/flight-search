@@ -1,0 +1,15 @@
+# Replace yourdomain.com with your actual domain
+# Coolify manages TLS — only use this if self-hosting Caddy separately
+
+api.yourdomain.com {
+  reverse_proxy mcp:3001
+  header {
+    Strict-Transport-Security "max-age=63072000; includeSubDomains"
+    X-Frame-Options DENY
+    X-Content-Type-Options nosniff
+  }
+}
+
+flights.yourdomain.com {
+  reverse_proxy frontend:80
+}
